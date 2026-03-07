@@ -1,6 +1,6 @@
-@session('auth')
+@auth
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{ auth()->user()->name }}</strong>
+        <strong>Hello {{ auth()->user()->name }}! </strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-@endsession
+@endauth

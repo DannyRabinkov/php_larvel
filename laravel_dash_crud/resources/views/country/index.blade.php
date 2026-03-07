@@ -58,14 +58,13 @@
         }
 
         /* make the navbar reach screen edges even inside .container */
-        /* .bleed-x {
-                                    margin-left: calc(-1 * var(--bs-gutter-x, .75rem));
-                                    margin-right: calc(-1 * var(--bs-gutter-x, .75rem));
-                                } */
+        .bleed-x {
+            margin-left: calc(-1 * var(--bs-gutter-x, .75rem));
+            margin-right: calc(-1 * var(--bs-gutter-x, .75rem));
+        }
     </style>
 
     {{-- Top navbar (inside content) --}}
-    {{-- <nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm mb-4 bleed-x px-3"> --}}
     <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom shadow-sm mb-4 bleed-x px-3">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center gap-2" href="#">
@@ -90,10 +89,6 @@
 
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        {{-- <a class="nav-link dropdown-toggle text-dark" href="#" role="button"
-                            data-bs-toggle="dropdown">
-                            Admin
-                        </a> --}}
                         <button class="nav-link dropdown-toggle btn btn-link text-dark p-0" type="button"
                             data-bs-toggle="dropdown">
                             {{ auth()->user()->name }}
@@ -119,12 +114,12 @@
     <h2 class="mb-4">Dashboard</h2>
 
     {{-- “You're logged in!” --}}
-    <div class="card shadow-sm mb-4">
-        @include('partials.login-message')
-    </div>
+    @include('partials.login-message')
+
+    {{-- success message --}}
+    @include('partials.success-message')
 
     {{-- Main white panel --}}
-    @include('partials.success-message')
     <div class="card sizedBox shadow-sm">
         <div class="card-body">
             <div class="row g-4">
