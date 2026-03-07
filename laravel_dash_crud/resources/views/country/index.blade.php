@@ -31,6 +31,21 @@
             padding-bottom: .9rem;
         }
 
+        .navbar {
+            position: relative;
+            z-index: 1050;
+        }
+
+        .dropdown-menu {
+            z-index: 2000;
+        }
+
+        .navbar,
+        .navbar .container-fluid,
+        .navbar-collapse {
+            overflow: visible !important;
+        }
+
         .nav-active::after {
             content: "";
             position: absolute;
@@ -43,14 +58,15 @@
         }
 
         /* make the navbar reach screen edges even inside .container */
-        .bleed-x {
-            margin-left: calc(-1 * var(--bs-gutter-x, .75rem));
-            margin-right: calc(-1 * var(--bs-gutter-x, .75rem));
-        }
+        /* .bleed-x {
+                                    margin-left: calc(-1 * var(--bs-gutter-x, .75rem));
+                                    margin-right: calc(-1 * var(--bs-gutter-x, .75rem));
+                                } */
     </style>
 
     {{-- Top navbar (inside content) --}}
-    <nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm mb-4 bleed-x px-3">
+    {{-- <nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm mb-4 bleed-x px-3"> --}}
+    <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom shadow-sm mb-4 bleed-x px-3">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center gap-2" href="#">
                 {{-- cube icon placeholder --}}
@@ -68,22 +84,31 @@
             <div class="collapse navbar-collapse" id="topNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link nav-active fw-medium text-dark" href="#">Dashboard</a>
+                        <a class="nav-link nav-active fw-medium text-dark" href="">Dashboard</a>
                     </li>
                 </ul>
 
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-dark" href="#" role="button"
+                        {{-- <a class="nav-link dropdown-toggle text-dark" href="#" role="button"
                             data-bs-toggle="dropdown">
                             Admin
-                        </a>
+                        </a> --}}
+                        <button class="nav-link dropdown-toggle btn btn-link text-dark p-0" type="button"
+                            data-bs-toggle="dropdown">
+                            {{ auth()->user()->name }}
+                        </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            {{-- <li><a class="dropdown-item" href="#">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">
+                            </li> --}}
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button class="btn dropdown-item" type="submit">Logout</button>
+                                </form>
                             </li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -95,9 +120,7 @@
 
     {{-- “You're logged in!” --}}
     <div class="card shadow-sm mb-4">
-        <div class="card-body py-4">
-            You're logged in!
-        </div>
+        @include('partials.login-message')
     </div>
 
     {{-- Main white panel --}}
