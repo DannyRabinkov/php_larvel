@@ -24,9 +24,9 @@ class CheckIpMiddleware
         $location = Location::get($ip);
         $code = $location->countryCode ?? null;
         if ($code && in_array($code, $allowedCountries)) {
-            return response()->json(['message' => 'You cant access this site from your current location']);
-        } else {
             return $next($request);
+        } else {
+            return response()->json(['message' => 'You cant access this site from your current location']);
         }
     }
 }
