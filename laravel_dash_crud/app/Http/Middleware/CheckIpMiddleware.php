@@ -23,7 +23,8 @@ class CheckIpMiddleware
         $ip = $request->ip();
         $location = Location::get($ip);
         $code = $location->countryCode ?? null;
-        if ($code && in_array($code, $allowedCountries)) {
+        $isLocal = config('app.env') == 'local';
+        if ($isLocal || ($code && in_array($code, $allowedCountries))) {
             return $next($request);
         } else {
             return response()->json(['message' => 'You cant access this site from your current location']);
